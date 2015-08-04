@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        <!-- 위는 tag 정보를 설명해주는 파일 -->
+
+    <!-- services -->
+    
+    <!-- 
+    	NoticeDao noticeDao = new MyBatisNoticeDao();
+		
+		NoticeConsole console = new NoticeConsole();
+		console.setNoticeDao(noticeDao);
+     -->
+    
+    <!-- annotation을 사용하겠다. -->
+    <context:annotation-config />
+    <!-- property = 세터함수 / 규칙에 따라 set을 사용하지 않고 소문자로 세터명을 시작/ 값 = value, 레퍼 = ref -->
+    <!-- <bean id="noticeDao" class="com.newlecture.web.dao.mybatis.MyBatisNoticeDao"/>  --> 
+    <bean id="noticeDao" class="com.newlecture.web.HiNoticeDao" /> 
+    <bean id="noticeDao1" class="com.newlecture.web.dao.mybatis.MyBatisNoticeDao"/>
+    <bean id="console" class="com.newlecture.web.NoticeConsole">
+    	<!-- <property name="noticeDao" ref="noticeDao" /> -->
+    </bean>
+    
+    <!-- constructor-arg는 초기화값을 지정할 때. name은 없고 순서대로 값만 나열. 순서를 바꿔야 할 경우 index(공백부터 시작) -->
+    
+    <!-- more bean definitions for services go here -->
+
+</beans>

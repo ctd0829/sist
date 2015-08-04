@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+
+
+	#header
+	{height: 70px;}
+	/* background(color image position)
+	no-repeat = 반복을 하지 않겠다.
+	*/
+	#visual
+	{height: 171px;
+	/* background: #313131 url("../images/bg-visual.png") no-repeat center; */
+	border-top:solid 3px #8CBA34;}
+	#body
+	{min-height: 300px;
+	border-top:solid 5px #8CBA34;
+	margin-top: 1px;}
+	#footer
+	{height: 100px;
+	background: #313131;}
+
+	
+	/* #visual .content-wrapper
+	{background: url("../images/visual.png") no-repeat center;} */
+	#body .content-wrapper
+	{background:url("../images/bg-body.png") repeat-y center;}
+	
+	.content-wrapper
+	{width: 960px; 
+	height: 100%;
+	min-height: inherit;
+	margin-left: auto;
+	margin-right: auto;
+	/* opacity: 0.5; */}
+	
+	#aside
+	{height: inherit;
+	width: 205px;
+	float: left;}
+	
+	#main
+	{height: inherit;
+	width: 755px;
+	float: left;}
+		
+	/* 
+		visibility: hidden - 존재는하지만 보이지만 않음 = 자식은 만들어짐
+		display: none - 존재하지않음(공간 없음) = 자식이 만들어지지 않음
+	*/
+	.clearfix:after
+	{content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;}
+	
+	
+	/* 
+		position : 위치가 고정된 방
+		- static(기본값)
+		- absolute: x,y좌표를  설정 / 문서 영역의 절대위치
+		- fixed: 화면 출력 영역에 절대위치
+	*/
+	#quick-menu
+	{height: 10px;
+	width: 100%;
+	position: fixed; left: 0; bottom: 0px;}
+	
+	#quick-menu:hover
+	{height: 70px; border-style: solid; background-image:../customer/images/visual.png}
+	
+

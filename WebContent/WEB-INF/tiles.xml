@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<!-- *은 최대 두개까지 사용 가능 
+	범위블럭이 큰것을 더 뒤에다 배치 
+	page를 나눴을 시 인크루드에 절대경로 이용(.jsp에서...) -->
+	<definition name="home.*" template="/WEB-INF/view/inc/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/view/{1}.jsp" />
+	    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+	</definition>
+
+	<definition name="*.*" template="/WEB-INF/view/{1}/inc/layout.jsp">
+	    <put-attribute name="header" value="/WEB-INF/view/inc/header.jsp" />
+	    <put-attribute name="aside" value="/WEB-INF/view/{1}/inc/aside.jsp" />
+	    <put-attribute name="body" value="/WEB-INF/view/{1}/{2}.jsp" />
+	    <put-attribute name="footer" value="/WEB-INF/view/inc/footer.jsp" />
+	</definition>
+</tiles-definitions>

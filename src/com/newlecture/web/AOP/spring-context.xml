@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+        <!-- 위는 tag 정보를 설명해주는 파일 -->
+
+    <!-- services -->
+    
+    <!-- 왕자님(실제 target) -->
+    <bean id="prince" class="com.newlecture.web.dao.mybatis.MyBatisNoticeDao" />
+    <!-- handler(곁다리업무) -->
+    <bean id="logBeforeAdvice" class="com.newlecture.web.AOP.LogBeforeAdvice" />
+    <bean id="logAroundAdvice" class="com.newlecture.web.AOP.LogAroundAdvice" />
+    
+    <!-- 어드바이저: 필터링한 정보에 어드바이스를 연결. -->
+    <bean id="noticePointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">
+    	<property name="mappedNames">
+    		<list>
+    			<value>getNotices</value> <!-- 내가 원하는 메소드 만으로 한정 -->
+    		</list>
+    	</property>
+    </bean>
+    <bean id="noticeAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+    	<property name="pointcut" ref="noticePointcut"></property>
+    	<property name="advice" ref="logBeforeAdvice"></property><!-- 어드바이스로 어떤것을 set 할것인지 -->
+    </bean>
+    
+	<!-- proxy(곁다리업무를 포함해서 왕자님을 실행) -->
+	<bean id="noticeDao" class="org.springframework.aop.framework.ProxyFactoryBean">    	
+    	<property name="target" ref="prince" />
+    	<property name="interceptorNames">
+    		<list>
+    			<value>noticeAdvisor</value>
+    			<!-- <value>logBeforeAdvice</value>handler id
+    			<value>logAroundAdvice</value> -->
+    		</list>
+    	</property>
+    </bean>
+    
+    <!-- more bean definitions for services go here -->
+
+</beans>

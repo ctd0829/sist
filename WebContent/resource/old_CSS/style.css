@@ -1,0 +1,11 @@
+@CHARSET "UTF-8";
+
+header > section.h1 > nav + nav 
+{color:red;font-size: 5px;font-weight: bolder;}
+#lecture-search-form input[type="text"]
+{color:red;font-size: 15px;font-style: italic;}
+
+#main-menu li a
+{color:green; font-weight: bolder;}
+#main-menu li:FIRST-CHILD + li a
+{color:pink; font-weight: bolder;}
