@@ -42,10 +42,45 @@
 	//for (i in ar)
 	//	alert(ar[i]); //i는 ar의 index(key값)를 꺼내옴 
 		
-	var m = {name:"abc", age:18};
+	/* var m = {name:"abc", age:18};
 		
 	for(var k in m)
-		alert(m[k]);
+		alert(m[k]); */
+	
+	/* var x = (function(a,b){
+		return a+b;
+	})(3,4); //익명의 함수 = 일회용
+		
+	alert(x); */
+	
+	/* function add(a,b){
+		return arguments[0]+arguments[1];
+	}
+	
+	var sum = add(2,3,4); //결과값은 5
+	//인자의 갯수가 불일치 해도 에러가 나지 않음. 
+	//값을 파라미터로 저장하지 않고 arguments라는 컬렉션에 저장됨.
+	//a,b는 별칭
+	
+	alert(sum);  */
+	
+	
+	function f1(){
+		a = 1;
+		f2();
+		function f2(){
+			a = 2;
+			f3();
+			function f3(){
+				a = 3; // 지역변수로 들어감. 
+				//global은 최후의 보루
+			}
+		}
+	} //function안에 function 정의 가능
+	
+	f1();
+	alert(a); // 3
+	
 </script>
 
 <style type="text/css">
