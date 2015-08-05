@@ -222,10 +222,22 @@
 	width: 60px;
 	}
 	
+
 	#notice td:FIRST-CHILD+td{
 	width: 400px;
 	text-align: left;
-	}	
+	text-indent: 10px; /* 들여쓰기 */
+	}
+	
+	#notice td:FIRST-CHILD+td a {
+    color: #979797;
+    text-decoration: none;
+	}
+	
+	#notice td:FIRST-CHILD+td a:HOVER {
+    text-decoration: underline
+	}
+		
 	/* 	#notice td:FIRST-CHILD+td+td{
 	width: 100px;
 	}
@@ -233,13 +245,45 @@
 	#notice td:FIRST-CHILD+td+td+td{
 	width: 100px;
 	} */  
-	#notice td:FIRST-CHILD+td+td+td+td{
+	#notice td:last-child /* FIRST-CHILD+td+td+td+td */{
 	width: 60px;
 	}
 	
 	
 	/* vertical-align = 수직정렬, inline만 가능 */
 	
+	/*----- 페이져 -----*/
+	#pager{
+	border: 1px solid blue;
+	display: inline-block;
+	}
+	
+	#pager > *{ /* * = 유니버셜 연산자 */
+	float: left;
+	}
+	
+	#pager > p{
+	border: 1px solid green;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 25px;
+	}
+	
+	#pager ul{
+	border: 1px solid yellow;
+	overflow: auto; 높이만 
+	/* display: inline-block; */ /* 자식 영역과 동일  */
+	}
+	
+	#pager li{
+	float: left;
+	width: 25px;
+	height: 25px;
+	border: 1px solid red;
+	text-align: center; /* 수평정렬 */
+	line-height: 25px; /* 수직정렬 */
+	}
 
 /*-----------------가구배치----------------------*/
 	/* 헤더. 가로배치 */
@@ -434,8 +478,9 @@
 				<p>1 of 3pages</p>
 			</section>
 	
-			<nav>
-				<h1>페이저</h1>
+			<nav id="pager">
+				<h1 class="hidden">페이저</h1>
+				<p><a href="">이전</a></p>
 				<ul>
 					<li><a href="">1</a></li>
 					<li><a href="">2</a></li>
@@ -443,6 +488,7 @@
 					<li><a href="">4</a></li>
 					<li><a href="">5</a></li>
 				</ul>
+				<p><a href="">다음</a></p>
 			</nav>
 		</section>
 		</main>
