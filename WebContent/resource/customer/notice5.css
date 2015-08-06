@@ -1,0 +1,273 @@
+@CHARSET "UTF-8";
+
+@IMPORT url("../css/reset.css");
+@IMPORT url("css/layout.css");
+@IMPORT url("css/style.css");
+	
+	/* 심볼형 padding은 간격. 즉, 자식의 속살. margin은 부모의 속살 */
+	#main-title{
+	font-family: 맑은 고딕, 고딕, sans-serif;
+	font-size: 21px;
+	font-weight: bold;
+	color: #646464;
+	padding-left: 25px;
+	background: url("../images/icon-main-title.png") no-repeat left;
+	}
+	
+	/*overflow : auto 는 높이에 대해서만
+	너비를 같이 맞추려면 display: inline-block*/
+	#main-menu{
+	border: solid 1px red;
+	display: inline-block;
+	}
+	#customer-menu{
+	border: solid 1px red;
+	display: inline-block;
+	}
+	#member-menu{
+	border: solid 1px red;
+	display: inline-block;
+	}
+	
+	/* 수평형 목록 */
+	#main-menu li{
+	padding-left: 24px;
+	background: url("../images/bg-main-menu-vsp.png") no-repeat left;
+	float: left;}
+	
+	#main-menu li a{
+	font-family: 맑은 고딕, 고딕, sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;}
+	
+	#main-menu li a:HOVER{
+	text-decoration: underline}
+	
+	#main-menu li:FIRST-CHILD{
+	padding: 0px; background: none;}
+	
+	
+	
+	#member-menu li{
+	padding-left: 9px;
+	background: url("../images/bg-member-menu-vsp.png") no-repeat left;
+	float: left;
+	}
+	
+	#member-menu li a{
+	font-family: 맑은 고딕, 고딕, sans-serif;
+	font-size: 10px;
+	font-weight: bold;
+	color: inherit;
+	text-decoration: none;}
+	
+	#member-menu li:FIRST-CHILD{
+	padding: 0px; background: none;}
+	
+	#customer-menu li{
+	float: left;}
+	
+	
+	#lecture-search-form{
+	position: relative;
+	padding-left:55px;
+	padding-right: 31px;
+	width: 222px/* 308px -55px - 31px */;
+	height: 25px;
+	border: 5px solid #8cba34;}
+
+	/* block은 line을 가질 수 없기 때문 
+	줄간격 = line-height
+	relative: 위치좌표를 지역화(absolute를  form 내에서 줘야 할 경우)*/
+	#lecture-search-form label{
+	position: absolute;
+	left: 0; top:0;
+	width: 55px;
+	height: 25px;
+	line-height: 25px;
+	background: green;
+	display: inline-block;}
+	
+	#lecture-search-form input[type="text"]{
+	width: 100%;
+	height: 25px;
+	border: 0px;
+	background: yellow;}
+	
+	#lecture-search-form input[type="submit"]{
+	position: absolute;
+	right: 0; top:0;
+	border-left: 1px solid #8cba34;}
+	
+	/* 고객센터 메뉴 */
+	
+	#aside > h1{
+	font-family: 맑은 고딕, 고딕, sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 43px;
+	}
+	
+	#aside-menu li{
+	background: url("../images/bg-aside-menu-hsp.png") repeat-x left bottom;
+	height: 26px;
+	line-height: 26px;
+	}
+	
+	#aside-menu li a{
+	font-family: 맑은 고딕, 고딕, sans-serif;
+	font-weight: bold;
+	color: #808080;
+	padding-left: 26px;
+	text-decoration: none;
+	}
+	
+	#aside-menu li a:HOVER{
+	cursor: pointer;
+	background: url("../images/iconCurrent.png") no-repeat 15px center;
+	}
+	
+	#aside-menu ul{
+	margin-top: 30px;}
+	
+	/* 추천사이트는 알아서 */
+	#recommend-site > h1 {
+	margin-top: 30px;
+    font-family: 맑은 고딕, 고딕, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #000;
+    padding-left: 26px;
+    background: url("../images/icon-recommend.png") no-repeat left center;
+	}
+	
+	
+	/* 공지사항 목록 */
+	
+	#notice table{
+	/* width: 720px; 안써도 되지 않나? */
+	border-top: solid 2px #8cba35;
+	}
+	
+	#notice tr{
+	height: 30px;
+	line-height: 30px;
+	}
+	
+	#notice th{
+	text-align: center;
+	background: #f5f5f5 url("../images/bg-title-sp.png") no-repeat left center;
+	border-bottom: solid 1px #e9e9e9; 
+	}
+	
+	#notice th:FIRST-CHILD{
+	background: #f5f5f5;
+	}
+	
+	#notice td{
+	text-align: center;
+	border-bottom: solid 1px #e9e9e9; 
+	width: 100px;/* 100인 아이가 둘이니 이 아이를 기본값으로 주고 나머지를 오버라이드 */
+	}
+	
+	#notice td:FIRST-CHILD{
+	width: 60px;
+	}
+	
+
+	#notice td:FIRST-CHILD+td{
+	width: 400px;
+	text-align: left;
+	text-indent: 10px; /* 들여쓰기 */
+	}
+	
+	#notice td:FIRST-CHILD+td a {
+    color: #979797;
+    text-decoration: none;
+	}
+	
+	#notice td:FIRST-CHILD+td a:HOVER {
+    text-decoration: underline
+	}
+		
+	/* 	#notice td:FIRST-CHILD+td+td{
+	width: 100px;
+	}
+	
+	#notice td:FIRST-CHILD+td+td+td{
+	width: 100px;
+	} */  
+	#notice td:last-child /* FIRST-CHILD+td+td+td+td */{
+	width: 60px;
+	}
+	
+	
+	/* vertical-align = 수직정렬, inline만 가능 */
+	
+	/*----- 페이져 -----*/
+	#pager{
+	border: 1px solid blue;
+	display: inline-block;
+	}
+	
+	#pager > *{ /* * = 유니버셜 연산자 */
+	float: left;
+	}
+	
+	#pager > p{
+	border: 1px solid green;
+	width: 25px;
+	height: 25px;
+	text-align: center;
+	line-height: 25px;
+	}
+	
+	#pager ul{
+	border: 1px solid yellow;
+	overflow: auto; 높이만 
+	/* display: inline-block; */ /* 자식 영역과 동일  */
+	}
+	
+	#pager li{
+	float: left;
+	width: 25px;
+	height: 25px;
+	border: 1px solid red;
+	text-align: center; /* 수평정렬 */
+	line-height: 25px; /* 수직정렬 */
+	}
+
+/*-----------------가구배치----------------------*/
+	/* 헤더. 가로배치 */
+	.content-wrapper{
+	position: relative;
+	}
+	
+	#loge{
+	position: absolute;
+	left: 0px; top: 23px;}
+	
+	#main-menu{
+	position: absolute;
+	left: 200px; top: 27px;}
+	
+	#lecture-search-form{
+	position: absolute;
+	left: 468px; top: 21px;
+	}
+	
+	
+	#member-menu{
+	position: absolute;
+	right: 0px; top: 20px;} 
+	
+	#customer-menu{
+	position: absolute;
+	right: 0px; top: 40px;
+	}
+	
+	/* 어사이드. 수직배치
+	margin이 중요 */

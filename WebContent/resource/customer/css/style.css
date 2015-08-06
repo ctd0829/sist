@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+
+	/*
+	text-align(정렬) / decoration(꾸미기 ex.취소선, 밑줄) / indent(들여쓰기) / shadow(그림자) / transform(왜곡 ex. 회전, 비틀기)
+	가변크기: em(일반적으로 많이 사용), ex / 고정크기: in, px(일반적으로 많이 사용), pt, pc, cm, mm
+	*/
+	body{
+	font-family: 돋움, Arial, sans-serif;
+	font-size: 11px;
+	color: #979797;
+	}
+		
+	.hidden
+	{display: none;}
+
+
+	/* 버튼형   cursor: 마우스를 가져왔을 때 변화를 주기 위함 
+	overflow: 범위 밖으로 나간 것을 처리하기 위함*/
+	.button{
+	display:inline-block; overflow:hidden;
+	border: 0px;
+	text-indent: -100px;}
+	
+	.button:HOVER{
+	cursor: pointer;}
+	
+	.zoom-button{
+	width: 31px; height:25px;
+	background: url("../../images/btn-zoom.png") no-repeat center;
+	}
+	.search-button{
+	width: 49px; height:23px;
+	background: url("../../images/btn-search.png") no-repeat center;
+	}
+	
+	.customer-button{
+	width: 72px; height:17px;
+	background: url("../../images/menu-customer.png") no-repeat center;}
+	
+	.mypage-button{
+	width: 72px; height:17px;
+	background: url("../../images/menu-mypage.png") no-repeat center;}
