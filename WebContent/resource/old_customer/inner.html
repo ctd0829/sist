@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<script type="text/javascript">
+		window.addEventListener("load", function(){
+			var btnParentClose = document.getElementById("btn-parent-close");
+			btnParentClose.onclick = function(){
+				parent.close(); //inner-window는 안닫힌다.
+				//window = self = 자기자신
+			};
+		});
+	
+	</script>
+</head>
+<body>
+	안쪽 프레임
+	<input id = "btn-parent-close" type="button" value="부모 윈도우 닫기" />
+</body>
+</html>

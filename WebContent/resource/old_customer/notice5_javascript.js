@@ -90,4 +90,13 @@
 			
 	}
 	
-	window.onload = init; //window가 전부 로드되면 init()을 실행
+	window.onload = function(){alert("test1")};
+	window.onload = function(){alert("test2")};
+	window.onload = function(){alert("test3")};	// test3만 출력
+	
+	window.addEventListener("load", function(){alert("test1");});
+	window.addEventListener("load", function(){alert("test2");});
+	window.addEventListener("load", function(){alert("test3");}); //3개 다 출력
+	
+	//window.onload = init; //window가 전부 로드되면 init()을 실행
+	//window.addEventListener("load", init); // 여러개의 함수를 초기화 호출할 경우
