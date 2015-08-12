@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+	window.addEventListener("load", function(){
+		/* 
+		//document.body.childNodes[0].value="안녕";
+		var size = document.body.childNodes.length;
+		var nodes = document.body.childNodes;
+		for (var i = 0; i<size; i++)
+			alert(nodes[i].nodeType);
+		//공백도 노드에 일부
+		 */
+		 
+		var photos = document.getElementById("photos");
+		var items = photos.getElementsByTagName("img");
+		
+		for(var i = 0; i<items.length; i++)
+			items[i].src="../images/1.jpg"
+	});
+
+</script>
+</head>
+<body>
+	<ul id = "photos">
+		<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGEgN0fvJiuAU9Y134KSCkWMA8ta1o6SfPXV2CacafZsOFXx9d"/></li>
+		<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeMIQeEKMYkBU-6k6Fzn87V4DArZ4aTeEI1eOqfCMBJQ_gULLO"/></li>
+		<li><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRDGHf1HNl7ODyFMttxVwkkctsWPfHyHf4QD60TpfcdCTidWqV_Ig"/></li>
+		
+	</ul>
+	<input type="text" />
+
+
+</body>
+</html>
