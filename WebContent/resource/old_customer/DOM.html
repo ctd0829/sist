@@ -18,17 +18,125 @@
 		var photos = document.getElementById("photos");
 		var items = photos.getElementsByTagName("img");
 		
-		for(var i = 0; i<items.length; i++)
-			items[i].src="../images/1.jpg"
+		
+		
+		var btnImgChange1 = document.getElementById("btn-img-change1");
+		btnImgChange1.onclick = function(){
+			var txtImage = document.getElementById("txt-image");
+			items[0].src = "images/"+txtImage.value;
+			items[0].style.border = "2px solid pink";
+			/* for(var i = 0; i<items.length; i++)
+				items[i].src="images/"+txtImage.value; */
+		};
+		
+		var btnImgChange2 = document.getElementById("btn-img-change2");
+		btnImgChange2.onclick = function(){
+			var txtImage = document.getElementById("cb-image");
+			for(var i = 0; i<items.length; i++)
+				items[i].src="images/"+txtImage.value;
+		};
+		
+		//동적으로 텍스트노드 추가
+		var btnAddText = document.getElementById("btn-add-text");
+		btnAddText.onclick = function(){
+			var txt = document.createTextNode("안녕하세요!!"); //텍스트 노드 생성
+			var li = document.getElementById("photos").getElementsByTagName("li")[0];
+			var parent = li; //부모노드
+			
+			parent.appendChild(txt); //자식을 추가해라
+			
+		};
+		//엘리먼트 노드 추가
+		var btnAddImg = document.getElementById("btn-add-img");
+		btnAddImg.onclick = function(){
+			var img1 = document.createElement("img");
+			img1.src="images/ajax-loader.gif";
+			var li = document.getElementById("photos").getElementsByTagName("li")[0];
+			var parent = li;
+			
+			parent.appendChild(img1);
+			
+		};
+		//자식 노드 삭제
+		var btnDelChild = document.getElementById("btn-del-child");
+		btnDelChild.onclick = function(){
+			var parent = document.getElementById("photos").getElementsByTagName("li")[0];
+			var last = parent.lastChild;
+			
+			parent.removeChild(last);
+		};
+		
+		//노드 복제
+		var btnCloneChild = document.getElementById("btn-clone-child");
+		btnCloneChild.onclick = function(){
+			var photos = document.getElementById("photos");
+			var target = photos.getElementsByTagName("li")[0];
+			var clone = target.cloneNode(true);
+			
+			photos.appendChild(clone);
+
+		};
+		//노드 교환하기
+		var btnChangeNode = document.getElementById("btn-change-node");
+		btnChangeNode.onclick = function(){
+			var photos = document.getElementById("photos");
+			var chboxs = photos.getElementsByTagName("input");
+			
+			var cntChecked = 0;
+			for(var i=0;i<chboxs.length; i++)
+				if(chboxs[i].checked)//checked = checkbox의 check여부를 T/F로 파악
+					cntChecked++;	
+			
+			if(cntChecked!=2){
+				alert("노드는 반드시 두개만 선택하여야 합니다.");
+				return				
+			}
+
+			var lis = [];
+			//유지보수의 문제. 일에 흐름에 따라. 위의 반복문은 확인작업. 아래의 반복문은 업무작업.
+			for(var i=0, j=0;i<chboxs.length; i++)
+				if(chboxs[i].checked)
+					lis[j++] = chboxs[i].parentNode;			
+			//alert(lis[0].nodeName);
+			photos.removeChild(lis[0]);
+
+		};
+		
 	});
+	
+	
 
 </script>
 </head>
 <body>
+	<div>
+		<ul>
+			<li>
+				images/<input id="txt-image" type="text">
+				<input id="btn-img-change1" type="button" value="변경">
+			</li>
+			<li>
+				images/
+				<select id="cb-image">
+					<option value="1.jpg">첫번째 이미지</option>
+					<option value="2.jpg">두번째 이미지</option>
+					<option value="3.jpg">세번째 이미지</option>
+				</select>
+				<input id="btn-img-change2" type="button" value="변경">
+			</li>
+			<li>
+				<input type="button" id="btn-add-text" value="텍스트추가" />
+				<input type="button" id="btn-add-img" value="이미지추가" /><br>
+				<input type="button" id="btn-del-child" value="막내삭제" />
+				<input type="button" id="btn-clone-child" value="첫째아들추가" /><br>
+				<input type="button" id="btn-change-node" value="두개의 노드 교체" />
+			</li>
+		</ul>
+	</div>
 	<ul id = "photos">
-		<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGEgN0fvJiuAU9Y134KSCkWMA8ta1o6SfPXV2CacafZsOFXx9d"/></li>
-		<li><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeMIQeEKMYkBU-6k6Fzn87V4DArZ4aTeEI1eOqfCMBJQ_gULLO"/></li>
-		<li><img src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRDGHf1HNl7ODyFMttxVwkkctsWPfHyHf4QD60TpfcdCTidWqV_Ig"/></li>
+		<li><input type = "checkbox" /><img src="images/1.jpg"/></li>
+		<li><input type = "checkbox" /><img src="images/2.jpg"/></li>
+		<li><input type = "checkbox" /><img src="images/3.jpg"/></li>
 		
 	</ul>
 	<input type="text" />
