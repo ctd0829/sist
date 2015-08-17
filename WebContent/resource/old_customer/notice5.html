@@ -5,6 +5,36 @@
 <title>Insert title here</title>
 <link href="../customer/notice5.css" type="text/css" rel = "stylesheet"/>
 <script type = "text/javascript" src = "../js/modernizr.js"></script>
+<script type="text/javascript">
+	window.addEventListener("load", function(){
+		var data =[
+		           {code:"1", title:"스크립트란", writer:"csy", regdate:"2015-08-14", hit:"10"},
+		           {code:"2", title:"안녕하세요", writer:"csy", regdate:"2015-08-14", hit:"1"},
+		           {code:"3", title:"임시공휴일이란...", writer:"csy", regdate:"2015-08-14", hit:"43"},
+		           {code:"4", title:"배불러", writer:"csy", regdate:"2015-08-14", hit:"2"},
+		           {code:"5", title:"데이터목록출력하기", writer:"csy", regdate:"2015-08-14", hit:"10"}
+		           ];
+		
+		//var btnAddRow = document.getElementById("btn-add-row");
+		var btnAddRow = document.querySelector("#btn-add-row");
+		btnAddRow.onclick = function(){
+			var notice = document.querySelector("#notice");
+			var tbody = notice.querySelector("tbody");
+			var row = tbody.querySelector("tr:first-child");
+			//row.style.background="red";
+			
+			for(var i=0;i<data.length;i++){// 콜렉션 길이만큼 반목
+				
+				var clone = row.cloneNode(true);
+				clone.querySelector("td:first-child").innerText =data[i].code;
+				clone.querySelector("td:first-child+td > a").innerText =data[i].title;
+				
+			tbody.appendChild(clone);
+			}
+		};
+		
+	});
+</script>
 </head>
 <body>
 	<header id="header">
@@ -158,7 +188,9 @@
 					</tbody>
 				</table>
 			</section>
-	
+			<div>
+				<input type="button" value="추가" id="btn-add-row"/>
+			</div>	
 			<section>
 				<h1>현재 페이지</h1>
 				<p>1 of 3pages</p>

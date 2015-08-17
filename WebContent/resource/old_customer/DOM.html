@@ -91,14 +91,18 @@
 				alert("노드는 반드시 두개만 선택하여야 합니다.");
 				return				
 			}
-
+			/* ---------- ↑ 노드선택 확인 ---------- */
 			var lis = [];
 			//유지보수의 문제. 일에 흐름에 따라. 위의 반복문은 확인작업. 아래의 반복문은 업무작업.
 			for(var i=0, j=0;i<chboxs.length; i++)
 				if(chboxs[i].checked)
 					lis[j++] = chboxs[i].parentNode;			
 			//alert(lis[0].nodeName);
-			photos.removeChild(lis[0]);
+			var node = photos.removeChild(lis[0]); //문서에서만 삭제될 뿐 메모리상에는 존재
+			//photo 마지막에 붙이기
+			//photos.appendChild(node);
+			//두번째 선택된 노드 앞에 붙이기 insertBefore(newChild, refChild)
+			photos.insertBefore(node,lis[1]);
 
 		};
 		
@@ -126,9 +130,9 @@
 			</li>
 			<li>
 				<input type="button" id="btn-add-text" value="텍스트추가" />
-				<input type="button" id="btn-add-img" value="이미지추가" /><br>
+				<input type="button" id="btn-add-img" value="이미지추가" />
 				<input type="button" id="btn-del-child" value="막내삭제" />
-				<input type="button" id="btn-clone-child" value="첫째아들추가" /><br>
+				<input type="button" id="btn-clone-child" value="첫째아들추가" />
 				<input type="button" id="btn-change-node" value="두개의 노드 교체" />
 			</li>
 		</ul>
