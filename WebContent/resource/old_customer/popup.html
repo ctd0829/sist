@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<script type="text/javascript">
+
+	function showDialog(url){
+		var dlg = document.createElement("div"); //mask 생성
+		
+		dlg.style.position = "fixed"; //mask style 정의
+		dlg.style.left = "0";
+		dlg.style.top = "0";
+		dlg.style.width = "100%";
+		dlg.style.height = "100%";
+		dlg.style.background = "black";
+		dlg.style.opacity = "0.3";
+		/* dlg.style = "position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: black; opacity: 0.3;"; */
+		document.body.appendChild(dlg); //추가
+		
+		//중앙좌표를 계산하기 위함
+		var docWidth = window.innerWidth; //창의 너비 및 높이		
+		var docHeight = window.innerHeight;
+		var width = 500; //view의 너비 및 높이
+		var height = 300;
+		var left = docWidth/2 - width/2;
+		var top = docHeight/2 - height/2;
+		
+		//alert(docWidth);
+		var view = document.createElement("div"); 
+		
+		view.style.position = "fixed"; 
+		view.style.left = left + "px";
+		view.style.top = top + "px";
+		view.style.width = width + "px";
+		view.style.height = height + "px";
+		view.style.background = "rgb(255,255,255)";
+
+		document.body.appendChild(view); 
+		
+		
+	}
+
+	window.addEventListener("load", function(){
+		// var btnShowDlg = document.getElementById("btn-show-dlg");
+		var btnShowDlg = document.querySelector("#btn-show-dlg");
+		btnShowDlg.onclick = function(){	
+			showDialog("partial1.html");
+		};	
+		
+	});
+
+</script>
+</head>
+<body>
+
+	<input type="button" value="창 띄우기" id="btn-show-dlg" />
+	
+	<!-- <div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: black; opacity: 0.3;">
+	
+	</div> -->
+
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
