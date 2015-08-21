@@ -23,10 +23,29 @@
 	{width: 200px; height: inherit; background: green; border-left: solid 1px white; float: left;}
 	
 	#codi-box li
-	{width: 150px; height: 150px; border: 2px solid black; background: beige;}
+	{width: 150px; height: 150px; border: 2px solid black; background: beige;
+	
+	border:solid  5px #000000;
+	border-top-left-radius:70px;
+	border-top-right-radius:0px; 
+	border-bottom-left-radius:0px;
+	border-bottom-right-radius:70px;
+	
+	/* transition-property: opacity; transition-duration: 1s;	transition-delay: 0.5s; */
+	trasition: 1s opacity ease-in-out, 1s margin-top cubic-bezier(0.32, -0.3, 0.69, 1.35);
+	}
+	
+	#codi-box li:HOVER{
+	transform: rotate(15deg) scale(0.8,1.2) skew(1deg) translate(10px);
+	transform-origin: right top;	/* 구심정의 위치를 설정 */
+	
+	opacity:0.5;
+	
+	}
 	
 	#codi-box img
 	{width: 80px;}
+
 
 </style>
 <script type="text/javascript">
@@ -36,6 +55,7 @@
 		var codiList = document.querySelector("#codi-box ul");
 		//버블링을 막기 위함. 기본값 = true / false = 버블링 순서대로...
 		codiList.addEventListener("click", function(){alert("ttt")}, true);
+		codiList.style.top = "0px";
 		
 		var codiBox = document.querySelector("#codi-box");
 			codiBox.addEventListener("click",function(event){
@@ -67,7 +87,66 @@
 				inputFile.dispatchEvent(event);
 				
 			};	
-			 
+			
+		
+		function move(target, by){
+			
+			var from = parseInt(target.style.top);//어디에서부터
+			var to = from + by;//어디까지
+			
+			var id = setInterval(function(){
+				
+				//애니메이션 프레임 연산
+				from += by/10; //이동거리 계산
+				console.log(from);//콘솔 찍어보기
+				
+				if(from < to)//종료시점
+					clearInterval(id);
+				
+				target.style.top = from + "px";
+				
+			}, 100);//100 = 0.1초
+			
+		}	
+			
+			
+			
+		//다음버튼으로 이미지 이동
+		var btnPrev = document.querySelector("#codi-box > div:first-child");
+		btnPrev.addEventListener("click", function(){
+			move(codiList, 300);
+			
+		});
+
+		
+		var btnNext = document.querySelector("#codi-box> div:last-child");
+		btnNext.addEventListener("click", function(){
+
+			move(codiList, -300);
+			
+			
+		});
+		
+		/* btnPrev.onclick = function(){
+		alert("이전");
+		}; */
+		
+		/* btnNext.onclick = function(){
+			
+			var id = setInterval(function(){
+				
+				var top = parseInt(codiList.style.top);
+				//애니메이션 프레임 연산
+				codiList.style.top = top - 30 + "px";
+				
+				if(top <= -300)//종료시점
+					clearInterval(id);
+				
+			}, 100);
+			
+		}; */
+		
+		
 	});
 
 </script>
@@ -81,12 +160,22 @@
 				<input type="text" />
 			</div>
 			<div id="codi-box">
-				<ul>
-					<li data-code="1"><a href="calc.html"><img src="cody_img/co5.png" /></a></li>
+				<div style="cursor: pointer;">
+					이전
+				</div>
+				<div style="height: 500px; border: 1px red solid; overflow: hidden; position: relative;">
+				<ul style="position: absolute;">
+					<li data-code="1"><a href="calc.html"><img src="cody_img/co1.png" /></a></li>
 					<li data-code="2"><img src="cody_img/co2.png" /></li>
 					<li data-code="3"><img src="cody_img/co3.png" /></li>
 					<li data-code="4"><img src="cody_img/co4.png" /></li>
+					<li data-code="5"><img src="cody_img/co5.png" /></li>
+					<li data-code="6"><img src="cody_img/co6.png" /></li>
 				</ul>
+				</div>				
+				<div style="cursor: pointer;">
+					다음
+				</div>
 			</div>
 			<div id="button-box">
 				<input type="file" id="item-upload" style="display: none;"/>
