@@ -17,7 +17,9 @@
 	{width: 901px; height: 600px;}
 	
 	#codi-canvas
-	{width: 700px; height: inherit; background: gray; float: left;}
+	{width: 700px; height: inherit; background: gray; float: left; position: relative;
+     overflow: hidden
+	}
 	
 	#codi-box
 	{width: 200px; height: inherit; background: green; border-left: solid 1px white; float: left;}
@@ -32,12 +34,12 @@
 	border-bottom-right-radius:70px;
 	
 	/* transition-property: opacity; transition-duration: 1s;	transition-delay: 0.5s; */
-	trasition: 1s opacity ease-in-out, 1s margin-top cubic-bezier(0.32, -0.3, 0.69, 1.35);
+	/* trasition: 1s opacity ease-in-out, 1s margin-top cubic-bezier(0.32, -0.3, 0.69, 1.35); */
 	}
 	
 	#codi-box li:HOVER{
-	transform: rotate(15deg) scale(0.8,1.2) skew(1deg) translate(10px);
-	transform-origin: right top;	/* 구심정의 위치를 설정 */
+	/* transform: rotate(15deg) scale(0.8,1.2) skew(1deg) translate(10px);
+	transform-origin: right top; */	/* 구심정의 위치를 설정 */
 	
 	opacity:0.5;
 	
@@ -52,7 +54,172 @@
 
 	window.addEventListener("load", function(){
 		
-		var codiList = document.querySelector("#codi-box ul");
+		var h1 = document.querySelector("h1");
+		
+		var imgBox = document.querySelector("#codi-box ul");
+		imgBox.addEventListener("dragstart", function(event){
+			//alert(event.target.dataset.code);
+			//event.target.nodeName == "IMG"
+			if(event.target instanceof HTMLImageElement){
+				//var data = event.target.dataset.code;
+				var data = { //JSON을 이용
+						code : event.target.dataset.code,
+						src : event.target.dataset.src
+				};
+				
+				//event.dataTransfer.setData("text/plain", data);
+				event.dataTransfer.setData("text/plain", JSON.stringify(data));
+				event.dataTransfer.effectAllowed = "move";//data를 이동인지 복제인지
+			}
+			else
+				event.preventDefault();
+		});
+		
+		var codiCanvas = document.querySelector("#codi-canvas");
+		codiCanvas.addEventListener("dragover", function(event){
+			event.preventDefault();
+		});
+		
+
+        //Native DND 코드
+		var dragItem = null;
+        //offsetX/Y를 이용하여 클릭한 위치의 좌표를 얻어내라.
+		var mouseOffset = {x :  0, y : 0};
+
+		codiCanvas.addEventListener("drop", function (event) {
+			var data = JSON.parse(event.dataTransfer.getData("text/plain")); //JSON.parse()가 왜 안될까....
+			//alert(data); //안됨
+			var img = document.createElement("img");
+            img.draggable = false //드래그시 환영이 안나오게 = 원본이 움직이지않게
+            img.src = data.src;
+            img.dataset.code = data.code;
+		    //img.dataset.code = data.dataset.code; data가 element가 아니기 때문에 안됨.
+
+			 
+			img.style.position = "absolute";
+			img.style.left = event.offsetX - (img.width/2) + "px";
+			img.style.top = event.offsetY - (img.height/2) +"px";
+
+			img.addEventListener("mousedown", function(event){
+				dragItem = event.target;
+				//dragItem.style.border = "solid red";
+				mouseOffset.x = event.offsetX;
+				mouseOffset.y = event.offsetY;
+
+			});
+			
+			var ctxMenu = null;
+
+            //우클릭시 메뉴 보이기
+			img.addEventListener("contextmenu", function (event) {
+			    //event.target.style.border = "solid red";
+
+			    var curImg = event.target;
+
+			    if (ctxMenu != null) {
+			        codiCanvas.removeChild(ctxMenu);
+			        ctxMenu = null;
+			    }
+
+			    ctxMenu = document.createElement("div");
+			    ctxMenu.style.width = "100px";
+			    ctxMenu.style.height = "100px";
+			    ctxMenu.style.position = "absolute";
+			    ctxMenu.style.left = parseInt(event.target.style.left) + event.offsetX + "px";
+			    ctxMenu.style.top = parseInt(event.target.style.top) + event.offsetY + "px";
+			    ctxMenu.style.border = "solid red"
+
+			    event.target.parentElement.appendChild(ctxMenu);
+
+			    var menuItemBringFront = document.createElement("div");
+			    menuItemBringFront.style.width = "100px";
+			    menuItemBringFront.style.height = "20px"
+			    menuItemBringFront.style.background = "pink";
+			    menuItemBringFront.textContent = "맨 앞으로";
+			    menuItemBringFront.addEventListener("click", function (event) {
+			        //alert("앞으로");
+			        if (ctxMenu != null) {
+			            curImg.style.zIndex = 1;
+                        codiCanvas.removeChild(ctxMenu);
+			            ctxMenu = null;
+			        }
+
+			    });
+
+			    ctxMenu.appendChild(menuItemBringFront);
+
+			    event.preventDefault();//기존 메뉴는 비활성화
+			    
+			});
+			
+			event.target.appendChild(img); 
+		});
+		
+
+		document.addEventListener("mousemove", function(event){
+			
+			h1.textContent = event.x + " , " + event.y;
+			
+			if (dragItem != null){
+				//dragItem.style.left = event.x + "px";
+			    //dragItem.style.top = event.y + "px";
+			    dragItem.style.left = /*event.x + document.body.scrollLeft*/ event.pageX - mouseOffset.x + "px";
+			    dragItem.style.top = /*event.y + document.body.scrollTop*/ event.pageY - mouseOffset.y + "px";
+			    //+ document.body.scrollxxx = 스크롤이 움직였을때의 좌표를 보정해줌
+			    //x/y = clientX/Y = 보여지는 화면을 기준으로
+			    //pageX/Y = 스크롤된 것을 포함하여 전체페이지(=문서)를 기준으로
+                //screenX/Y = 바탕화면을 기준으로
+			}
+
+		});
+		
+		
+		document.addEventListener("mouseup", function(event){
+			
+			h1.textContent = event.x + " , " + event.y;
+			
+			if (dragItem != null){
+				dragItem = null;
+			}
+
+		});
+		
+		var btnSave = document.querySelector("#button-box span:last-child");
+		btnSave.addEventListener("click", function () {
+		    //var data = "[ \
+            //    { \"code\": 1, x: 20, y: 40 }, \
+            //    { code: 1, x: 20, y: 40 } \
+		    //]"; //이런식으로
+		    var data = "[";
+
+		    var imgs = codiCanvas.querySelectorAll("img");
+
+		    for (var i = 0; i < imgs.length; i++) {
+
+		        var item = "{'code': '" + imgs[i].dataset.code + "', 'x': " + imgs[i].style.left + ", 'y': " + imgs[i].style.top + "}";
+
+		        if(i == imgs.length-1)
+                    data += item ;
+                else
+		            data += item + ", ";
+
+		    }
+		    data += "]";
+
+		    //alert(data);
+		    //xhr.open("save");
+		    
+		    //xmlhttprequest level 2
+		    // 1. level 1의 방식
+		    var request = new window.XMLHttpRequest();
+		    request.open("POST", "save");
+		    request.setRequestHeader("Content-Type","text/plain;charset=UTF-8");
+		    request.send(data);
+		    
+		});
+		
+		
+		/* var codiList = document.querySelector("#codi-box ul");
 		//버블링을 막기 위함. 기본값 = true / false = 버블링 순서대로...
 		codiList.addEventListener("click", function(){alert("ttt")}, true);
 		codiList.style.top = "0px";
@@ -74,12 +241,12 @@
 		//트리거. 
 		var btnBox = document.querySelector("#button-box span");
 			btnBox.onclick = function(){
-				/* var event = new MouseEvent("click",{
-					'view': window,
-					'bubbles' : true,
-					'cancelable': true
-				}); //익스플로러는 안됨 
-				*/
+				//var event = new MouseEvent("click",{
+				//	'view': window,
+				//	'bubbles' : true,
+				//	'cancelable': true
+				//}); //익스플로러는 안됨 
+				
 				var event = document.createEvent("MouseEvent");
 				event.initEvent("click", true, true);
 				
@@ -107,8 +274,7 @@
 				
 			}, 100);//100 = 0.1초
 			
-		}	
-			
+		}		
 			
 			
 		//다음버튼으로 이미지 이동
@@ -127,7 +293,7 @@
 			
 		});
 		
-		/* btnPrev.onclick = function(){
+		btnPrev.onclick = function(){
 		alert("이전");
 		}; */
 		
@@ -165,12 +331,14 @@
 				</div>
 				<div style="height: 500px; border: 1px red solid; overflow: hidden; position: relative;">
 				<ul style="position: absolute;">
-					<li data-code="1"><a href="calc.html"><img src="cody_img/co1.png" /></a></li>
-					<li data-code="2"><img src="cody_img/co2.png" /></li>
-					<li data-code="3"><img src="cody_img/co3.png" /></li>
-					<li data-code="4"><img src="cody_img/co4.png" /></li>
-					<li data-code="5"><img src="cody_img/co5.png" /></li>
-					<li data-code="6"><img src="cody_img/co6.png" /></li>
+					<li data-code="1"><!-- <a href="calc.html"> -->
+						<img draggable="true" data-code="c01" data-src="cody_img/co6.png" src="cody_img/co6.png" />
+					<!-- </a> --></li>
+					<li data-code="2"><img draggable="true" data-code="c02" data-src="cody_img/co2.png" src="cody_img/co2.png" /></li>
+					<li data-code="3"><img draggable="true" data-code="c03" data-src="cody_img/co3.png" src="cody_img/co3.png" /></li>
+					<li data-code="4"><img draggable="true" data-code="c04" data-src="cody_img/co4.png" src="cody_img/co4.png" /></li>
+					<li data-code="5"><img draggable="true" data-code="c05" data-src="cody_img/co5.png" src="cody_img/co5.png" /></li>
+					<li data-code="6"><img draggable="true" data-code="c06" data-src="cody_img/co6.png" src="cody_img/co6.png" /></li>
 				</ul>
 				</div>				
 				<div style="cursor: pointer;">
@@ -180,7 +348,8 @@
 			<div id="button-box">
 				<input type="file" id="item-upload" style="display: none;"/>
 				<span style="background: pink; cursor: pointer;">파일선택</span>
-			</div>
+                <span style="background: green; cursor: pointer; border: solid black 1px;">코디저장</span>		
+            </div>
 		</div>
 	</section>
 </body>

@@ -12,4 +12,9 @@ public class HomeController {
 		
 		return "home.index";
 	}
+	
+	@RequestMapping("resource/old_customer/save")
+	public void saveCodi() {
+		
+	}
 }

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>제이쿼리</title>
+<link href='css/reset.css' rel='stylesheet' type='text/css'/>
+<script src="../js/jquery-1.11.3.js"></script>
+<style>
+   .scroller{
+   
+   }
+   
+   .scroller ul{
+      position : relative;
+      background : yellow;
+      width : 600px;
+      height : 200px;
+   }
+   
+   .scroller-first{
+      width : 160px;
+      height : 160px;
+      position : absolute;
+      left : 80px;
+      top : 20px;
+      background : blue;
+      opacity : 0.7;
+
+      
+   }
+   .scroller-center{
+      width : 200px;
+      height : 200px;
+      position : absolute;
+      background : green;
+      left : 200px;
+      top : 0px;
+      z-index: 1;
+      opacity : 1;
+   
+   }
+   .scroller-last{
+   width : 160px;
+      height : 160px;
+      position : absolute;
+      background : purple;
+      right :80px;
+      top : 20px;
+      opacity : 0.7;
+   
+   }
+   
+   /* .scroller li:nth-child(1){
+      background : blue;
+   } */
+</style>
+<script type="text/javascript">
+   $(window).load(function(){
+      
+      var scrollFirst = {
+         width : "160px",
+         height : "160px",
+         position : "absolute",
+         left : "80px",
+         top : "20px",
+         //background : "blue",
+         zindex : 0,
+         opacity : 0.7,
+            
+      };
+      
+      var scrollCenter = {
+         width : "200px",
+         height : "200px",
+         position : "absolute",
+         left : "200px",
+         top : "0px",
+         //background : "green",
+         zindex : 1,
+         opacity : 1,
+               
+      };
+      var scrollLast = {
+         width : "160px",
+         height : "160px",
+         position : "absolute",
+         left : "360px",
+         top : "20px",
+         //background : "purple",
+         zindex : 0,
+         opacity : 0.7,
+         
+               
+      };
+      
+      var items = $("#lecture-scroller li");
+      
+      var btnPrev = $("#lecture-scroller div").first();
+      var btnNext = $("#lecture-scroller div").last();
+      
+      var off = 0;
+      
+      items.eq(0).css(scrollFirst); 
+      items.eq(1).css(scrollCenter); 
+      items.eq(2).css(scrollLast);
+      
+      btnPrev.click(function(){
+         //alert("prev");
+         
+         /* off++;
+         
+         items.eq((0 + off)%3).css(scrollFirst); 
+         items.eq((1 + off)%3).css(scrollCenter); 
+         items.eq((2 + off)%3).css(scrollLast); */
+         
+         /* items.eq(1).animate({
+            width : "1000px",
+            opacity : 0.5
+         },2000).animate({
+            width : "500px"
+         },1000).animate({
+            opacity : 1
+         },1000); */
+         /*1000 , function(){
+            $(this).css({
+               transform : "rotate(17.5deg)"
+            })
+         }); */ 
+         
+          items.eq(1).animate({
+            width : "1000px",
+            opacity : 0.5
+            
+         },1000).animate({deg:90},{
+            
+            duration : 1000,
+            step : function(now,fx){
+               $(this).css({transform:"rotate("+now+"deg)"});
+            }
+         });  
+         
+         /* off++;
+         
+         items.eq((0 + off)%3).animate(scrollFirst,1000); 
+         items.eq((1 + off)%3).animate(scrollCenter,1000); 
+         items.eq((2 + off)%3).animate(scrollLast,1000);  */
+         
+      });
+      
+      btnNext.click(function(){
+         //alert("next");
+      });
+   })
+   
+</script>
+</head>
+<body>
+   <div id="lecture-scroller" class="scroller">
+      <h1>스크롤 이미지</h1>
+      <div>◁</div>
+      <ul>
+         <li class="scroller-first">1</li>
+         <li class="scroller-center">2</li>
+         <li class="scroller-last">3</li>
+         
+      </ul>
+      <div>▷</div>
+   </div>
+
+</body>
+</html>
